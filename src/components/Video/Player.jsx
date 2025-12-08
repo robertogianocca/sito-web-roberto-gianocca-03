@@ -52,7 +52,8 @@ export default function Player() {
         {/* <Gesture event="pointerup" action="toggle:user-idle" /> */}
 
         {/* <Gesture className="vds-gesture" event="pointerup" action="toggle:controls" /> */}
-        <Gesture className="vds-gesture" event="touchstart" action="toggle:controls" />
+        {/* <Gesture className="vds-gesture" event="touchstart" action="toggle:controls" /> */}
+        <Gesture className="vds-gesture" />
 
         {/* Controls with auto-hide - hideDelay in milliseconds */}
 
@@ -61,7 +62,7 @@ export default function Player() {
 
           hideDelay={2000}
           hideOnMouseLeave={true}
-          className="vds-controls data-fullscreen:bg-amber-400 absolute inset-0 z-10 justify-end h-full w-full flex flex-col bg-linear-to-t from-black/20 to-transparent data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity pointer-events-none"
+          className="vds-controls data-fullscreen:bg-amber-400 absolute inset-0 z-10 justify-end h-full w-full flex flex-col bg-linear-to-t from-black/20 to-transparent data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent"
         >
           {/* versione 01 */}
 
@@ -75,51 +76,46 @@ export default function Player() {
           hideOnMouseLeave="true"
           
           > */}
-          <Controls.Group className="w-full">
+          <Controls.Group className="vds-controls-play">
             <CenterPlayButton />
-            {/* Spacer to push controls to bottom - allows clicks through to Gesture */}
-            <div className="" />
+          </Controls.Group>
+          {/* Barra di controllo - bottoni + time slider */}
+          <Controls.Group
+            className="vds-controls-bar w-full flex flex-col pointer-events-auto items"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Control Buttons Row */}
+            <div className="flex items-center justify-between gap-3">
+              {/* Left: Volume controls */}
+              <div className="flex items-center gap-2 flex-1">
+                <VolumeControls />
+              </div>
 
-            {/* Bottom Control Bar - pointer-events-auto to block Gesture clicks */}
-            <div
-              className="w-full px-4 pb-4 pt-10 flex flex-col gap-2 pointer-events-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Time Slider */}
+              {/* Center: Time display */}
+              <div className="flex items-center gap-1 text-white font-medium select-none">
+                <Time type="current" className="time" />
+                <span className="text-white/60">/</span>
+                <Time type="duration" className="time text-white/60" />
+              </div>
 
-              <h1 className={`${isPaused ? "text-red-500" : "text-green-900"}`}>TEST BUTTON</h1>
-
-              <TimeSlider.Root className="vds-time-slider vds-slider w-full">
-                <TimeSlider.Track className="vds-slider-track">
-                  <TimeSlider.TrackFill className="vds-slider-track-fill" />
-                  <TimeSlider.Progress className="vds-slider-progress" />
-                </TimeSlider.Track>
-                <TimeSlider.Thumb className="vds-slider-thumb" />
-                <TimeSlider.Preview className="vds-slider-preview">
-                  <TimeSlider.Value className="vds-slider-value" />
-                </TimeSlider.Preview>
-              </TimeSlider.Root>
-
-              {/* Control Buttons Row */}
-              <div className="flex items-center justify-between gap-3">
-                {/* Left: Volume controls */}
-                <div className="flex items-center gap-2 flex-1">
-                  <VolumeControls />
-                </div>
-
-                {/* Center: Time display */}
-                <div className="flex items-center gap-1 text-white font-medium select-none">
-                  <Time type="current" className="time" />
-                  <span className="text-white/60">/</span>
-                  <Time type="duration" className="time text-white/60" />
-                </div>
-
-                {/* Right: Fullscreen button */}
-                <div className="flex items-center flex-1 justify-end">
-                  <FullscreenButtonWithIcon />
-                </div>
+              {/* Right: Fullscreen button */}
+              <div className="flex items-center flex-1 justify-end">
+                <FullscreenButtonWithIcon />
               </div>
             </div>
+
+            {/* Time Slider */}
+
+            <TimeSlider.Root className="vds-time-slider vds-slider">
+              <TimeSlider.Track className="vds-slider-track">
+                <TimeSlider.TrackFill className="vds-slider-track-fill" />
+                <TimeSlider.Progress className="vds-slider-progress" />
+              </TimeSlider.Track>
+              <TimeSlider.Thumb className="vds-slider-thumb" />
+              <TimeSlider.Preview className="vds-slider-preview">
+                <TimeSlider.Value className="vds-slider-value" />
+              </TimeSlider.Preview>
+            </TimeSlider.Root>
           </Controls.Group>
         </Controls.Root>
       </MediaPlayer>
@@ -160,23 +156,23 @@ function CenterPlayButton() {
 function VolumeControls() {
   const volume = useMediaState("volume");
   const isMuted = useMediaState("muted");
-
+  const volumeIconDimension = "h-15 w-15";
   return (
     <>
       {/* Mute Button - visible on all devices */}
       <MuteButton className="group flex h-9 w-9 items-center justify-center rounded-full text-white/90 transition-colors hover:text-white hover:bg-white/10">
         {isMuted || volume === 0 ? (
-          <MuteIcon className="h-5 w-5" />
+          <MuteIcon className={volumeIconDimension} />
         ) : volume < 0.5 ? (
-          <VolumeLowIcon className="h-5 w-5" />
+          <VolumeLowIcon className={volumeIconDimension} />
         ) : (
-          <VolumeHighIcon className="h-5 w-5" />
+          <VolumeHighIcon className={volumeIconDimension} />
         )}
       </MuteButton>
 
       {/* Volume Slider - hidden on mobile, visible on desktop (md and up) */}
       <div className="hidden md:block">
-        <VolumeSlider.Root className="vds-volume-slider vds-slider group w-40">
+        <VolumeSlider.Root className="vds-volume-slider vds-slider group w-30!">
           <VolumeSlider.Track className="vds-slider-track">
             <VolumeSlider.TrackFill className="vds-slider-track-fill" />
           </VolumeSlider.Track>

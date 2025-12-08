@@ -35,6 +35,12 @@ export default function Player() {
     <div className="w-full lg:w-2/3 mt-20 mx-auto">
       <MediaPlayer src={src} playsInline crossOrigin>
         <MediaProvider />
+        {/* Gesture: click on surface toggles play/pause */}
+        {/* <Gesture event="pointerup" action="toggle:paused" className="absolute inset-0 z-0" /> */}
+
+        {/* Show/hide controls for mobile: single tap toggles controls visible */}
+        <Gesture event="pointerup" action="toggle:user-idle" />
+
         {/* Controls with auto-hide - hideDelay in milliseconds */}
         <Controls.Root
           className="vds-controls absolute inset-0 z-10 h-full w-full flex flex-col bg-linear-to-t from-black/20 to-transparent data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity transition-pointer-events-none"

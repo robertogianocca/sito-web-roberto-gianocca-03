@@ -6,8 +6,11 @@
 /* @import "@vidstack/react/player/styles/default/gestures.css"; */
 /* @import "@vidstack/react/player/styles/default/time.css"; */
 
-/* Center Play Button Overlay */
+/* ====================================================================
+   CONFIRMED CSS
+   ==================================================================== */
 
+/* Center Play Button Overlay */
 .vds-play-button {
   background-color: rgb(0, 0, 0);
   border-radius: 50%;
@@ -16,6 +19,28 @@
   backdrop-filter: blur(4px);
 }
 
-.media-player[data-view-type="video"] {
+/* ====================================================================
+TEST
+==================================================================== */
+/* Always show controls when paused */
+/* [data-media-player][data-paused] .vds-controls {
+  opacity: 1 !important;
+  pointer-events: auto;
+} */
+
+/* Responsive adjustments */
+/* @media (max-width: 640px) {
+} */
+
+/* .vds-controls[data-fullscreen] {
+  background-color: green;
+} */
+/* Controls fade out when not visible */
+/* [data-media-player] .vds-controls:not([data-visible]) {
+  opacity: 0 !important;
+  pointer-events: none;
+} */
+
+/* .media-player[data-view-type="video"] {
   aspect-ratio: 16/9;
-}
+} */

@@ -1,22 +1,18 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import {
   MediaPlayer,
   MediaProvider,
-  Gesture,
   Controls,
-  PlayButton,
   MuteButton,
   VolumeSlider,
   TimeSlider,
   Time,
-  FullscreenButton,
   useMediaState,
 } from "@vidstack/react";
 
 import {
-  PlayIcon,
-  PauseIcon,
   MuteIcon,
   VolumeLowIcon,
   VolumeHighIcon,
@@ -25,10 +21,29 @@ import {
 } from "@vidstack/react/icons";
 
 export default function Player() {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
   const src = {
     src: `vimeo/917201659}`,
     // src: `vimeo/${vimeoId ?? "917201659"}`,
     type: "video/vimeo",
+  };
+
+  // Lock body scroll when in fullscreen mode
+  useEffect(() => {
+    if (isFullscreen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isFullscreen]);
+
+  const toggleFullscreen = () => {
+    setIsFullscreen((prev) => !prev);
   };
 
   function VolumeControls() {
@@ -61,74 +76,93 @@ export default function Player() {
     );
   }
 
-  function FullscreenButtonWithIcon() {
-    const isFullscreen = useMediaState("fullscreen");
-
+  function CustomFullscreenButton() {
     return (
-      <FullscreenButton
+      <button
+        onClick={toggleFullscreen}
         className="group flex h-9 w-9 items-center justify-center rounded-full text-white/90 transition-colors hover:text-white hover:bg-white/10"
-        target="prefer-media"
+        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
       >
         {isFullscreen ? (
           <FullscreenExitIcon className="h-5 w-5" />
         ) : (
           <FullscreenIcon className="h-5 w-5" />
         )}
-      </FullscreenButton>
+      </button>
     );
   }
 
   return (
-    <div className="w-1/2 mx-auto">
-      <MediaPlayer src={src} playsInline>
-        <MediaProvider />
-        {/* Controls with auto-hide - hideDelay in milliseconds */}
-        <Controls.Root
-          className="vds-controls absolute inset-0 z-10 flex flex-col items-start opacity-100 transition-opacity duration-300 pointer-events-none"
-          hideDelay={2000}
+    <div
+      className={`${
+        isFullscreen
+          ? "fixed inset-0 z-[9999] bg-black flex items-center justify-center"
+          : "w-full max-w-4xl mx-auto"
+      } transition-all duration-300`}
+    >
+      <div
+        className={`${
+          isFullscreen
+            ? "w-full h-full flex items-center justify-center p-2 sm:p-4"
+            : "w-full aspect-video"
+        } relative`}
+      >
+        <MediaPlayer
+          src={src}
+          playsInline
+          className={`${
+            isFullscreen ? "w-full h-full max-w-full max-h-full" : "w-full h-full"
+          }`}
         >
-          {/* Spacer to push controls to bottom - allows clicks through to Gesture */}
-          <div className="flex-1" />
-
-          {/* Bottom Control Bar - pointer-events-auto to block Gesture clicks */}
-          <div
-            className="w-full px-4 pb-4 pt-10 flex flex-col gap-2 pointer-events-auto"
-            onClick={(e) => e.stopPropagation()}
+          <MediaProvider />
+          {/* Controls with auto-hide - hideDelay in milliseconds */}
+          <Controls.Root
+            className="vds-controls absolute inset-0 z-10 flex flex-col items-start opacity-100 transition-opacity duration-300 pointer-events-none"
+            hideDelay={2000}
           >
-            {/* Time Slider */}
-            <TimeSlider.Root className="vds-time-slider vds-slider w-full">
-              <TimeSlider.Track className="vds-slider-track">
-                <TimeSlider.TrackFill className="vds-slider-track-fill" />
-                <TimeSlider.Progress className="vds-slider-progress" />
-              </TimeSlider.Track>
-              <TimeSlider.Thumb className="vds-slider-thumb" />
-              <TimeSlider.Preview className="vds-slider-preview">
-                <TimeSlider.Value className="vds-slider-value" />
-              </TimeSlider.Preview>
-            </TimeSlider.Root>
+            {/* Spacer to push controls to bottom - allows clicks through to Gesture */}
+            <div className="flex-1" />
 
-            {/* Control Buttons Row */}
-            <div className="flex items-center justify-between gap-3">
-              {/* Left: Volume controls */}
-              <div className="flex items-center gap-2 flex-1">
-                <VolumeControls />
-              </div>
+            {/* Bottom Control Bar - pointer-events-auto to block Gesture clicks */}
+            <div
+              className="w-full px-4 pb-4 pt-10 flex flex-col gap-2 pointer-events-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Time Slider */}
+              <TimeSlider.Root className="vds-time-slider vds-slider w-full">
+                <TimeSlider.Track className="vds-slider-track">
+                  <TimeSlider.TrackFill className="vds-slider-track-fill" />
+                  <TimeSlider.Progress className="vds-slider-progress" />
+                </TimeSlider.Track>
+                <TimeSlider.Thumb className="vds-slider-thumb" />
+                <TimeSlider.Preview className="vds-slider-preview">
+                  <TimeSlider.Value className="vds-slider-value" />
+                </TimeSlider.Preview>
+              </TimeSlider.Root>
 
-              {/* Center: Time display */}
-              <div className="flex items-center gap-1 text-white font-medium select-none">
-                <Time type="current" className="time" />
-                <span className="text-white/60">/</span>
-                <Time type="duration" className="time text-white/60" />
-              </div>
+              {/* Control Buttons Row */}
+              <div className="flex items-center justify-between gap-3">
+                {/* Left: Volume controls */}
+                <div className="flex items-center gap-2 flex-1">
+                  <VolumeControls />
+                </div>
 
-              {/* Right: Fullscreen button */}
-              <div className="flex items-center flex-1 justify-end">
-                <FullscreenButtonWithIcon />
+                {/* Center: Time display */}
+                <div className="flex items-center gap-1 text-white font-medium select-none">
+                  <Time type="current" className="time" />
+                  <span className="text-white/60">/</span>
+                  <Time type="duration" className="time text-white/60" />
+                </div>
+
+                {/* Right: Fullscreen button */}
+                <div className="flex items-center flex-1 justify-end">
+                  <CustomFullscreenButton />
+                </div>
               </div>
             </div>
-          </div>
-        </Controls.Root>
-      </MediaPlayer>
+          </Controls.Root>
+        </MediaPlayer>
+      </div>
     </div>
   );
 }

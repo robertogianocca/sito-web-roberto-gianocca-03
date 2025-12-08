@@ -80,7 +80,7 @@ export default function Player() {
 
   return (
     <div className="w-1/2 mx-auto">
-      <MediaPlayer src={src} playsInline fullscreenOrientation="auto">
+      <MediaPlayer src={src} playsInline>
         <MediaProvider />
         {/* Controls with auto-hide - hideDelay in milliseconds */}
         <Controls.Root

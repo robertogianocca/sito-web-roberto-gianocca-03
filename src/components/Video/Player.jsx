@@ -44,50 +44,24 @@ export default function Player() {
     <div className="w-full lg:w-2/3 mt-20 mx-auto">
       <MediaPlayer ref={player} src={src} playsInline crossOrigin>
         <MediaProvider />
-        {/* Gesture: click on surface toggles play/pause */}
-        {/* <Gesture event="pointerup" action="toggle:paused" className="absolute inset-0 z-0" /> */}
-
-        {/* Show/hide controls for mobile: single tap toggles controls visible */}
-
-        {/* <Gesture event="pointerup" action="toggle:user-idle" /> */}
-
-        {/* <Gesture className="vds-gesture" event="pointerup" action="toggle:controls" /> */}
-        {/* <Gesture className="vds-gesture" event="touchstart" action="toggle:controls" /> */}
-        <Gesture className="vds-gesture" />
-
-        {/* Controls with auto-hide - hideDelay in milliseconds */}
-
         <Controls.Root
-          //I due attributi sono collegati direttamente ad un'animazione CSS e non funzionano indipendentemente
-
           hideDelay={2000}
           hideOnMouseLeave={true}
+          //I due attributi sono collegati direttamente ad un'animazione CSS e non funzionano indipendentemente
           className="vds-controls data-fullscreen:bg-amber-400 absolute inset-0 z-10 justify-end h-full w-full flex flex-col bg-linear-to-t from-black/20 to-transparent data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent"
         >
-          {/* versione 01 */}
-
-          {/* <Controls.Root className="vds-controls absolute inset-0 z-10 h-full w-full flex flex-col bg-linear-to-t from-black/20 to-transparent data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity transition-pointer-events-none"> */}
-
-          {/* versione 00 */}
-
-          {/* <Controls.Root
-          className="vds-controls absolute inset-0 z-10 flex flex-col items-start  pointer-events-none"
-          hideDelay={1000}
-          hideOnMouseLeave="true"
-          
-          > */}
           <Controls.Group className="vds-controls-play">
             <CenterPlayButton />
           </Controls.Group>
-          {/* Barra di controllo - bottoni + time slider */}
+          {/* ==================== BARRA DI CONTROLLO ==================== */}
           <Controls.Group
-            className="vds-controls-bar w-full flex flex-col pointer-events-auto items"
+            className="vds-controls-bar w-full flex flex-col pointer-events-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Control Buttons Row */}
-            <div className="flex items-center justify-between gap-3">
+            {/* ========== BUTTONS ROW ========== */}
+            <div className="flex items-center justify-between gap-3 px-10 py-3 lg:px-20">
               {/* Left: Volume controls */}
-              <div className="flex items-center gap-2 flex-1">
+              <div className="flex items-center flex-1">
                 <VolumeControls />
               </div>
 
@@ -171,7 +145,7 @@ function VolumeControls() {
       </MuteButton>
 
       {/* Volume Slider - hidden on mobile, visible on desktop (md and up) */}
-      <div className="hidden md:block">
+      <div className="hidden md:flex ">
         <VolumeSlider.Root className="vds-volume-slider vds-slider group w-30!">
           <VolumeSlider.Track className="vds-slider-track">
             <VolumeSlider.TrackFill className="vds-slider-track-fill" />
@@ -185,16 +159,16 @@ function VolumeControls() {
 
 function FullscreenButtonWithIcon() {
   const isFullscreen = useMediaState("fullscreen");
-
+  const fullIconDimension = "h-15 w-15";
   return (
     <FullscreenButton
       className="group flex h-9 w-9 items-center justify-center rounded-full text-white/90 transition-colors hover:text-white hover:bg-white/10"
       target="prefer-media"
     >
       {isFullscreen ? (
-        <FullscreenExitIcon className="h-5 w-5" />
+        <FullscreenExitIcon className={fullIconDimension} />
       ) : (
-        <FullscreenIcon className="h-5 w-5" />
+        <FullscreenIcon className={fullIconDimension} />
       )}
     </FullscreenButton>
   );

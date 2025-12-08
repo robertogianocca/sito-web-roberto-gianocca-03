@@ -33,20 +33,20 @@ export default function Player() {
 
   return (
     <div className="w-full lg:w-2/3 mt-20 mx-auto">
-      <MediaPlayer src={src} playsInline controlsDelay={1000}>
+      <MediaPlayer src={src} playsInline crossOrigin>
         <MediaProvider />
-        <CenterPlayButton />
         {/* Controls with auto-hide - hideDelay in milliseconds */}
         <Controls.Root
-          className="vds-controls absolute inset-0 z-10 h-full w-full flex flex-col bg-linear-to-t from-black/20 to-transparent data-visible:opacity-100  opacity-0 transition-opacity pointer-events-none"
-          hideDelay={1000}
-          hideOnMouseLeave="true"
+          className="vds-controls absolute inset-0 z-10 h-full w-full flex flex-col bg-linear-to-t from-black/20 to-transparent data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity transition-pointer-events-none"
+          //   hideDelay={6000}
+          //   hideOnMouseLeave="true"
         >
           {/* <Controls.Root
           className="vds-controls absolute inset-0 z-10 flex flex-col items-start  pointer-events-none"
           hideDelay={1000}
           hideOnMouseLeave="true"
-        > */}
+          > */}
+          <CenterPlayButton />
           {/* Spacer to push controls to bottom - allows clicks through to Gesture */}
           <div className="flex-1" />
 
@@ -100,7 +100,7 @@ FUNCTIONS
 // CenterPlayButton - Must be inside MediaPlayer to use useMediaState
 
 function CenterPlayButton() {
-  const isPaused = useMediaState("paused");
+  const paused = useMediaState("paused");
 
   return (
     // Versione Base
@@ -108,9 +108,18 @@ function CenterPlayButton() {
     // <PlayButton className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-black shadow-lg transition-all duration-200 hover:scale-110 hover:bg-white">
     //   {isPaused ? <PlayIcon className="h-7 w-7 ml-0.5" /> : <PauseIcon className="h-7 w-7" />}
     // </PlayButton>
-    <PlayButton className="vds-play-button absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-black shadow-lg transition-all duration-200 hover:scale-110 hover:bg-white">
-      {isPaused ? <PlayIcon className="h-15 w-15 ml-0.5" /> : <PauseIcon className="h-7 w-7" />}
-    </PlayButton>
+
+    // <PlayButton className="vds-play-button absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-black shadow-lg transition-all duration-200 hover:scale-110 hover:bg-white">
+    //   {isPaused ? <PlayIcon className="h-15 w-15 ml-0.5" /> : <PauseIcon className="h-7 w-7" />}
+    // </PlayButton>
+    <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+      <PlayButton
+        className="vds-button vds-play-button pointer-events-auto"
+        aria-label={paused ? "Play" : "Pause"}
+      >
+        {paused ? <PlayIcon /> : <PauseIcon />}
+      </PlayButton>
+    </div>
   );
 }
 

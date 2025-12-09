@@ -29,7 +29,8 @@ import {
 
 export default function Player() {
   const src = {
-    src: `vimeo/917201659}`,
+    // fixed stray brace
+    src: `vimeo/917201659`,
     // src: `vimeo/${vimeoId ?? "917201659"}`,
     type: "video/vimeo",
   };
@@ -38,17 +39,39 @@ export default function Player() {
 
   const { paused, volume, muted, fullscreen, controlsHidden, onPlay } = useMediaStore(player);
   const isPaused = paused;
-  console.log(onPlay);
 
   return (
     <div className="w-full lg:w-2/3 mt-20 mx-auto">
       <MediaPlayer ref={player} src={src} playsInline crossOrigin>
         <MediaProvider />
+
+        {/* ====== GESTURES: whole-surface click/double-click ======
+            pointerup toggles paused
+            dblpointerup toggles fullscreen
+            The Gesture element fills the player surface and uses Vidstack's built-in actions.
+            (Gesture uses the "action" shorthand like "toggle:paused".)
+        */}
+        <Gesture
+          // single click / tap: toggle play/pause
+          event="pointerup"
+          action="toggle:paused"
+          className="absolute inset-0 z-10 pointer-events-auto"
+          aria-hidden="true"
+        />
+
+        <Gesture
+          // double click: toggle fullscreen (optional)
+          event="dblpointerup"
+          action="toggle:fullscreen"
+          className="absolute inset-0 z-20 pointer-events-auto"
+          aria-hidden="true"
+        />
+
         <Controls.Root
           hideDelay={2000}
           hideOnMouseLeave={true}
           //I due attributi sono collegati direttamente ad un'animazione CSS e non funzionano indipendentemente
-          className="vds-controls data-fullscreen:bg-amber-400 absolute inset-0 z-10 justify-end h-full w-full flex flex-col bg-linear-to-t from-black/20 to-transparent data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent"
+          className="vds-controls data-fullscreen:bg-amber-400 absolute inset-0 z-30 justify-end h-full w-full flex flex-col bg-linear-to-t from-black/20 to-transparent data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent"
         >
           <Controls.Group className="vds-controls-play">
             <CenterPlayButton />
@@ -107,16 +130,7 @@ function CenterPlayButton() {
   const paused = useMediaState("paused");
 
   return (
-    // Versione Base
-
-    // <PlayButton className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-black shadow-lg transition-all duration-200 hover:scale-110 hover:bg-white">
-    //   {isPaused ? <PlayIcon className="h-7 w-7 ml-0.5" /> : <PauseIcon className="h-7 w-7" />}
-    // </PlayButton>
-
-    // <PlayButton className="vds-play-button absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-black shadow-lg transition-all duration-200 hover:scale-110 hover:bg-white">
-    //   {isPaused ? <PlayIcon className="h-15 w-15 ml-0.5" /> : <PauseIcon className="h-7 w-7" />}
-    // </PlayButton>
-    <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+    <div className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none">
       <PlayButton
         className="vds-button vds-play-button pointer-events-auto"
         aria-label={paused ? "Play" : "Pause"}

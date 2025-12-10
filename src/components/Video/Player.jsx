@@ -51,21 +51,22 @@ export default function Player() {
             The Gesture element fills the player surface and uses Vidstack's built-in actions.
             (Gesture uses the "action" shorthand like "toggle:paused".)
         */}
-        <Gesture
-          // single click / tap: toggle play/pause
+
+        {/* // single click / tap: toggle play/pause */}
+        {/* <Gesture
           event="pointerup"
           action="toggle:paused"
-          className="absolute inset-0 z-10 pointer-events-auto"
-          aria-hidden="true"
-        />
+          className="absolute inset-0 z-10 pointer-events-none lg:pointer-events-auto"
+          aria-hidden="false"
+        /> */}
 
-        <Gesture
-          // double click: toggle fullscreen (optional)
+        {/* // double click: toggle fullscreen (optional) */}
+        {/* <Gesture
           event="dblpointerup"
           action="toggle:fullscreen"
           className="absolute inset-0 z-20 pointer-events-auto"
           aria-hidden="true"
-        />
+        /> */}
 
         <Controls.Root
           hideDelay={2000}

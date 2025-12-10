@@ -23,7 +23,7 @@ export default async function VideoPageId({ params }) {
         <div className="col-span-2">
           <VideoThumbnails />
         </div>
-        <div className="col-span-2">
+        <div className="hidden lg:block col-span-2">
           <VideoDetails videoId={videoId.id} />
         </div>
       </div>

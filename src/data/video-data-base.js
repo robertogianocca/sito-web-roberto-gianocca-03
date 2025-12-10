@@ -6,7 +6,7 @@ export const videoDataBase = [
     subtitle: "A music video for Matt Pascale & The Stomps",
     // description: videoDescriptions["sugar-mama"],
     // cover: "/video/sugar-mama/sugar-mama-cover.jpg",
-    // thumbnail: "/video-thumbnails/sugar-mama-thumb_01.jpg",
+    thumbnail: "/video/sugar-mama/sugar-mama-thumb_01.jpg",
   },
   {
     id: "met-parachute",
@@ -15,7 +15,7 @@ export const videoDataBase = [
     subtitle: "",
     // description: videoDescriptions["sugar-mama"],
     // cover: "/video/sugar-mama/sugar-mama-cover.jpg",
-    // thumbnail: "/video-thumbnails/sugar-mama-thumb_01.jpg",
+    thumbnail: "/video/sugar-mama/sugar-mama-thumb_01.jpg",
   },
   {
     id: "carie",
@@ -24,6 +24,6 @@ export const videoDataBase = [
     subtitle: "",
     // description: videoDescriptions["sugar-mama"],
     // cover: "/video/sugar-mama/sugar-mama-cover.jpg",
-    // thumbnail: "/video-thumbnails/sugar-mama-thumb_01.jpg",
+    thumbnail: "/video/sugar-mama/sugar-mama-thumb_01.jpg",
   },
 ];

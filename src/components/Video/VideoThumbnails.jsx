@@ -1,12 +1,14 @@
 import { videoDataBase } from "@/data/video-data-base";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function VideoThumbnails() {
   //
   const mappedVideo = videoDataBase.map((video) => {
     return (
       <Link key={video.id} href={`/video/${video.id}`}>
-        <div className="bg-slate-800 p-3 rounded-2xl mb-10">{video.title}</div>
+        {video.title}
+        <Image src={video.thumbnail} width={1000} height={1000} />
       </Link>
     );
   });

@@ -1,4 +1,5 @@
 import { videoDataBase } from "@/data/video-data-base";
+import Player from "@/components/Video/Player";
 
 export default function VideoDetails({ videoId = "sugar-mama" }) {
   // Find the video by matching the id property
@@ -15,12 +16,12 @@ export default function VideoDetails({ videoId = "sugar-mama" }) {
   }
 
   return (
-    <div className="p-10 bg-slate-600 rounded-2xl mx-auto">
-      <h1 className="text-2xl mb-10">Details</h1>
+    <>
+      <Player vimeoId={foundVideo.vimeoId} />
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">{foundVideo.title}</h2>
         {foundVideo.subtitle && <p className="text-slate-300">{foundVideo.subtitle}</p>}
       </div>
-    </div>
+    </>
   );
 }

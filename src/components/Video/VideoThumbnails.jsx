@@ -1,54 +1,47 @@
 "use client";
 
 import { motion } from "motion/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
 import { videoDataBase } from "@/data/video-data-base";
 
 export default function VideoThumbnails() {
-  const path = usePathname();
-  const segments = path.split("/");
-  const lastSegment = segments[segments.length - 1];
-  console.log(lastSegment); // "sugar-mama"
-
+  const path = useParams();
+  const url = path.id;
   const mappedVideo = videoDataBase.map((video, index) => {
-    const isSelected = lastSegment === video.id;
+    const isSelected = url === video.id || (!url && index === 0);
+
     return (
       <motion.div
         key={video.id}
-        className="overflow-hidden mb-4 rounded-2xl"
-        initial={{ opacity: 0, y: 600 }}
+        className="mb-4 rounded-2xl overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         // whileTap={enableNavigation ? { scale: 0.95 } : undefined}
-        whileTap={{ scale: 0.95 }}
+        // whileTap={{ scale: 0.95 }}
         transition={{
-          duration: 3,
-          // delay: index * 0.1, // Stagger delay: 0.1s between each thumbnail
+          duration: 2,
+          // Stagger delay: 0.1s between each thumbnail
+          delay: 0.3 + index * 0.1,
           ease: [0.16, 1, 0.3, 1],
         }}
       >
-        <Link
-          href={`/video/${video.id}`}
-          className={`relative aspect-video transition-all duration-500 ${
-            isSelected ? "filter-none scale-105" : "filter brightness-25 blur-xs scale-102"
-          }`}
-        >
-          <Image src={video.thumbnail} width={1000} height={1000} />
+        <Link href={`/video/${video.id}`}>
+          <Image
+            src={video.thumbnail}
+            width={1000}
+            height={1000}
+            alt={`${video.id}-thumbnail`}
+            className={`transition-all duration-300 ${
+              isSelected ? "scale-105" : "brightness-25 hover:brightness-65 hover:scale-102"
+            } `}
+          />
         </Link>
       </motion.div>
     );
   });
 
-  return (
-    <motion.div
-      className="text-custom-brown"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 0.2 }}
-    >
-      {mappedVideo}
-    </motion.div>
-  );
+  return mappedVideo;
 }

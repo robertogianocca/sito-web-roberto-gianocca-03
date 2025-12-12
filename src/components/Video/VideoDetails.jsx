@@ -1,7 +1,7 @@
 import { videoDataBase } from "@/data/video-data-base";
 import Player from "@/components/Video/Player";
 
-export default function VideoDetails({ videoId }) {
+export default function VideoDetails({ videoId = "sugar-mama" }) {
   // Find the video by matching the id property
   const foundVideo = videoDataBase.find((video) => video.id === videoId);
 
@@ -18,7 +18,7 @@ export default function VideoDetails({ videoId }) {
 
   return (
     <>
-      {/* <Player vimeoId={foundVideo.vimeoId} /> */}
+      <Player vimeoId={foundVideo.vimeoId} />
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">{foundVideo.title}</h2>
         {foundVideo.subtitle && <p className="text-slate-300">{foundVideo.subtitle}</p>}

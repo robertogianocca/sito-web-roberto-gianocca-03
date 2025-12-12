@@ -5,9 +5,9 @@ import VideoThumbnails from "@/components/Video/VideoThumbnails";
 
 export default async function VideoLayout({ children }) {
   return (
-    <div className="lg:h-dvh p-1 lg:p-10 flex flex-col lg:grid grid-cols-4 gap-10">
+    <div className="lg:h-dvh p-1 lg:p-10 flex flex-col lg:grid grid-cols-5 gap-10">
       <Background color="#456DFF" />
-      <div className="col-span-1">
+      <div className="hidden lg:block col-span-1">
         <p>
           t is a long established fact that a reader will be distracted by the readable content of a
           page when looking at its layout. The point of using Lorem Ipsum is that it has a
@@ -24,7 +24,7 @@ export default async function VideoLayout({ children }) {
       </div>
 
       {/* Only this area transitions smoothly */}
-      <div className="lg:col-span-2">{children}</div>
+      <div className="lg:col-span-3">{children}</div>
     </div>
   );
 }

@@ -39,8 +39,8 @@ export default async function VideoPageId({ params }) {
   }
 
   return (
-    <VideoContentTransition videoId={id}>
-      <VideoDetails videoId={id} />
-    </VideoContentTransition>
+    // <VideoContentTransition videoId={id}>
+    <VideoDetails videoId={id} />
+    // </VideoContentTransition>
   );
 }

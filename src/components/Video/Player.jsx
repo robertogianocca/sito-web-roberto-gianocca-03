@@ -30,7 +30,7 @@ import {
 
 export default function Player({ vimeoId }) {
   const src = {
-    src: `vimeo/${vimeoId}`,
+    src: `vimeo/1132948199`,
     type: "video/vimeo",
   };
 
@@ -40,7 +40,16 @@ export default function Player({ vimeoId }) {
     useMediaStore(player);
 
   const isPaused = paused;
+  const isMuted = muted;
+  const isFull = fullscreen;
   const isReady = canPlay;
+
+  const playerColor = {
+    icons: "green",
+    backBar: "green",
+    timeBar: "blue",
+    progressBar: "red",
+  };
 
   return (
     <>
@@ -68,163 +77,97 @@ export default function Player({ vimeoId }) {
           </div>
         </div>
       </div>
-
       {/* ============================================================ */}
       {/*                           PLAYER                             */}
       {/* ============================================================ */}
       <div>
-        <MediaPlayer
-          key={vimeoId}
-          aspectRatio="16/9"
-          // className={!isReady && "opacity-0"}
-          ref={player}
-          src={src}
-          playsInline
-          crossOrigin
-        >
+        <MediaPlayer key={vimeoId} aspectRatio="16/9" ref={player} src={src} playsInline>
           <MediaProvider />
-
-          {/* ====== GESTURES: whole-surface click/double-click ======
-            pointerup toggles paused
-            dblpointerup toggles fullscreen
-            The Gesture element fills the player surface and uses Vidstack's built-in actions.
-            (Gesture uses the "action" shorthand like "toggle:paused".)
-        */}
-
-          {/* // single click / tap: toggle play/pause */}
-          {/* <Gesture
-          event="pointerup"
-          action="toggle:paused"
-          className="absolute inset-0 z-10 pointer-events-none lg:pointer-events-auto"
-          aria-hidden="false"
-        /> */}
-
-          {/* // double click: toggle fullscreen (optional) */}
-          {/* <Gesture
-          event="dblpointerup"
-          action="toggle:fullscreen"
-          className="absolute inset-0 z-20 pointer-events-auto"
-          aria-hidden="true"
-        /> */}
-
           <Controls.Root
-            hideDelay={2000}
-            hideOnMouseLeave={true}
+            // hideDelay={2000}
+            // hideOnMouseLeave={true}
             //I due attributi sono collegati direttamente ad un'animazione CSS e non funzionano indipendentemente
-            className="vds-controls data-fullscreen:bg-amber-400 absolute inset-0 z-30 justify-end h-full w-full flex flex-col bg-linear-to-t from-black/20 to-transparent data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity pointer-events-none bg-gradient-to-t from-black/90 via-black/60 to-transparent"
+            // className="vds-controls absolute inset-0 z-30 justify-end h-full w-full flex flex-col data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity pointer-events-none bg-linear-to-t from-black/70 via-black/60 to-transparent"
+            className="vds-controls"
           >
-            <Controls.Group className="vds-controls-play">
-              <CenterPlayButton />
-            </Controls.Group>
-            {/* ==================== BARRA DI CONTROLLO ==================== */}
-            <Controls.Group
-              className="vds-controls-bar w-full flex flex-col pointer-events-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* ========== BUTTONS ROW ========== */}
-              <div className="flex items-center justify-between gap-3 px-10 py-3 lg:px-20">
-                {/* Left: Volume controls */}
-                <div className="flex items-center flex-1">
-                  <VolumeControls />
+            <Controls.Group className="vds-controls-group bg-linear-to-t from-black via-black/80 to-transparent">
+              <div className="buttons-bar">
+                {/* ========== Left buttons containers ========== */}
+                <div className="flex flex-row items-center">
+                  <PlayButton className="vds-button" style={{ color: playerColor.icons }}>
+                    {isPaused ? (
+                      <PlayIcon className="play-icon vds-icon" />
+                    ) : (
+                      <PauseIcon className="pause-icon vds-icon" />
+                    )}
+                  </PlayButton>
+                  <MuteButton className="vds-button" style={{ color: playerColor.icons }}>
+                    {isMuted || volume == 0 ? (
+                      <MuteIcon className="mute-icon vds-icon" />
+                    ) : volume < 0.5 ? (
+                      <VolumeLowIcon className="volume-low-icon vds-icon" />
+                    ) : (
+                      <VolumeHighIcon className="volume-high-icon vds-icon" />
+                    )}
+                  </MuteButton>
+                  {/* ========== VOLUME SLIDER CONTAINER ========== */}
+                  <div className="w-25 hidden md:flex">
+                    <VolumeSlider.Root className="vds-slider">
+                      <VolumeSlider.Track
+                        className="vds-slider-track"
+                        style={{ backgroundColor: playerColor.backBar }}
+                      />
+                      <VolumeSlider.TrackFill
+                        className="vds-slider-track-fill vds-slider-track"
+                        style={{ backgroundColor: playerColor.timeBar }}
+                      />
+                      <VolumeSlider.Thumb className="vds-slider-thumb" />
+                    </VolumeSlider.Root>
+                  </div>
                 </div>
-
-                {/* Center: Time display */}
-                <div className="flex items-center gap-1 text-white font-medium select-none">
-                  <Time type="current" className="time" />
-                  <span className="text-white/60">/</span>
-                  <Time type="duration" className="time text-white/60" />
+                {/* ========== Central times container ========== */}
+                <div className="vds-time-group" style={{ color: playerColor.icons }}>
+                  <Time className="vds-time" type="current" />
+                  <p className="vds-time-divider" style={{ color: playerColor.icons }}>
+                    /
+                  </p>
+                  <Time className="vds-time" type="duration" />
                 </div>
-
-                {/* Right: Fullscreen button */}
-                <div className="flex items-center flex-1 justify-end">
-                  <FullscreenButtonWithIcon />
+                {/* ========== Right buttons containers ========== */}
+                <div className="flex flex-row items-center">
+                  <FullscreenButton className="vds-button" style={{ color: playerColor.icons }}>
+                    {isFull ? (
+                      <FullscreenExitIcon className="fs-exit-icon vds-icon" />
+                    ) : (
+                      <FullscreenIcon className="fs-enter-icon vds-icon" />
+                    )}
+                  </FullscreenButton>
                 </div>
               </div>
-
-              {/* Time Slider */}
-
-              <TimeSlider.Root className="vds-time-slider vds-slider">
-                <TimeSlider.Track className="vds-slider-track">
-                  <TimeSlider.TrackFill className="vds-slider-track-fill" />
-                  <TimeSlider.Progress className="vds-slider-progress" />
-                </TimeSlider.Track>
-                <TimeSlider.Thumb className="vds-slider-thumb" />
-                <TimeSlider.Preview className="vds-slider-preview">
-                  <TimeSlider.Value className="vds-slider-value" />
-                </TimeSlider.Preview>
-              </TimeSlider.Root>
+              <div className="time-slider">
+                <TimeSlider.Root className="vds-time-slider vds-slider">
+                  <TimeSlider.Track
+                    className="vds-slider-track rounded-none!"
+                    style={{ backgroundColor: playerColor.backBar }}
+                  />
+                  <TimeSlider.TrackFill
+                    className="vds-slider-track-fill vds-slider-track rounded-none!"
+                    style={{ backgroundColor: playerColor.timeBar }}
+                  />
+                  <TimeSlider.Progress
+                    className="vds-slider-progress vds-slider-track rounded-none!"
+                    style={{ backgroundColor: playerColor.progressBar }}
+                  />
+                  <TimeSlider.Thumb className="vds-slider-thumb" />
+                  <TimeSlider.Preview className="vds-slider-preview">
+                    <TimeSlider.Value className="vds-slider-value" />
+                  </TimeSlider.Preview>
+                </TimeSlider.Root>
+              </div>
             </Controls.Group>
           </Controls.Root>
         </MediaPlayer>
       </div>
     </>
-  );
-}
-
-/* =======================================================================
-FUNCTIONS
-========================================================================= */
-
-// CenterPlayButton - Must be inside MediaPlayer to use useMediaState
-
-function CenterPlayButton() {
-  const paused = useMediaState("paused");
-
-  return (
-    <div className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none">
-      <PlayButton
-        className="vds-button vds-play-button pointer-events-auto"
-        aria-label={paused ? "Play" : "Pause"}
-      >
-        {paused ? <PlayIcon /> : <PauseIcon />}
-      </PlayButton>
-    </div>
-  );
-}
-
-function VolumeControls() {
-  const volume = useMediaState("volume");
-  const isMuted = useMediaState("muted");
-  const volumeIconDimension = "h-15 w-15";
-  return (
-    <>
-      {/* Mute Button - visible on all devices */}
-      <MuteButton className="group flex h-9 w-9 items-center justify-center rounded-full text-white/90 transition-colors hover:text-white hover:bg-white/10">
-        {isMuted || volume === 0 ? (
-          <MuteIcon className={volumeIconDimension} />
-        ) : volume < 0.5 ? (
-          <VolumeLowIcon className={volumeIconDimension} />
-        ) : (
-          <VolumeHighIcon className={volumeIconDimension} />
-        )}
-      </MuteButton>
-
-      {/* Volume Slider - hidden on mobile, visible on desktop (md and up) */}
-      <div className="hidden md:flex ">
-        <VolumeSlider.Root className="vds-volume-slider vds-slider group w-30!">
-          <VolumeSlider.Track className="vds-slider-track">
-            <VolumeSlider.TrackFill className="vds-slider-track-fill" />
-          </VolumeSlider.Track>
-          <VolumeSlider.Thumb className="vds-slider-thumb" />
-        </VolumeSlider.Root>
-      </div>
-    </>
-  );
-}
-
-function FullscreenButtonWithIcon() {
-  const isFullscreen = useMediaState("fullscreen");
-  const fullIconDimension = "h-15 w-15";
-  return (
-    <FullscreenButton
-      className="group flex h-9 w-9 items-center justify-center rounded-full text-white/90 transition-colors hover:text-white hover:bg-white/10"
-      target="prefer-media"
-    >
-      {isFullscreen ? (
-        <FullscreenExitIcon className={fullIconDimension} />
-      ) : (
-        <FullscreenIcon className={fullIconDimension} />
-      )}
-    </FullscreenButton>
   );
 }

@@ -1,6 +1,5 @@
 @import "tailwindcss";
-/* @import "../components/Video/Player.css"; */
-@import "./player-test/Player.css";
+@import "../components/Video/Player.css";
 
 :root {
   --background: #ffffff;

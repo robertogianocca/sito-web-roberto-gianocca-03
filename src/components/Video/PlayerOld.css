@@ -1,0 +1,143 @@
+@import "@vidstack/react/player/styles/base.css";
+@import "@vidstack/react/player/styles/default/sliders.css";
+@import "@vidstack/react/player/styles/default/icons.css";
+@import "@vidstack/react/player/styles/default/buttons.css";
+/* @import "@vidstack/react/player/styles/default/controls.css"; */
+/* @import "@vidstack/react/player/styles/default/gestures.css"; */
+/* @import "@vidstack/react/player/styles/default/time.css"; */
+
+/* ====================================================================
+   CONFIRMED CSS
+   ==================================================================== */
+
+.vds-controls-bar {
+  /* background-color: blueviolet; */
+}
+
+/* Center Play Button Overlay */
+.vds-play-button {
+  background-color: rgb(0, 0, 0);
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  backdrop-filter: blur(4px);
+}
+
+/* Always show controls when paused */
+[data-media-player][data-paused] .vds-controls {
+  opacity: 1 !important;
+  pointer-events: auto;
+}
+
+/* ==================== TIME SLIDER ==================== */
+
+/* ========== Time Slider Container ==========*/
+.vds-time-slider {
+  margin: 0;
+  height: 8px;
+}
+/* ========== Track Background ==========*/
+
+.vds-time-slider .vds-slider-track {
+  background-color: rgb(75 85 99 / 0.8) !important;
+  /* position: relative; */
+  display: flex;
+  height: 8px !important;
+
+  /* overflow: hidden; */
+}
+
+/* ========== Track Buffer ==========*/
+
+.vds-time-slider .vds-slider-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(156, 163, 175, 0.6) !important; /* gray-400 */
+  height: 8px !important;
+  width: var(--slider-progress, 0%) !important;
+  z-index: 1;
+  will-change: width;
+  border-radius: 4px;
+}
+
+/* ========== Track Progress ==========*/
+.vds-time-slider .vds-slider-track-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgb(220, 38, 38) !important; /* red-600 */
+  height: 8px !important;
+  width: var(--slider-fill, 0%) !important;
+  z-index: 2;
+  will-change: width;
+  border-radius: 4px;
+}
+
+/* Thumb - Red circle, visible on hover/drag */
+/* .vds-time-slider .vds-slider-thumb {
+  background-color: rgb(220, 38, 38) !important;
+  border: 2px solid white !important;
+  width: 16px !important;
+  height: 16px !important;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.vds-time-slider:hover .vds-slider-thumb,
+.vds-time-slider[data-dragging] .vds-slider-thumb,
+.vds-time-slider[data-active] .vds-slider-thumb {
+  opacity: 1 !important;
+} */
+
+/* Preview tooltip */
+.vds-slider-value {
+  background-color: rgb(0 0 0 / 0.9);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ==================== ALTRO ==================== */
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  /* Controlli inizialmente nascosti */
+  .vds-controls-bar {
+    opacity: 0 !important;
+    pointer-events: auto;
+  }
+
+  /* Controlli inizialmente nascosti */
+  [data-media-player][data-playing] .vds-controls-bar {
+    opacity: 1 !important;
+    pointer-events: auto;
+  }
+}
+
+/* Remove toggle to pause on touch. */
+@media (pointer: coarse) {
+  .vds-gesture[action="toggle:paused"] {
+    display: none;
+  }
+}
+
+/* ====================================================================
+TEST
+==================================================================== */
+
+/* .vds-controls[data-fullscreen] {
+  background-color: green;
+} */
+/* Controls fade out when not visible */
+/* [data-media-player] .vds-controls:not([data-visible]) {
+  opacity: 0 !important;
+  pointer-events: none;
+} */
+
+/* .media-player[data-view-type="video"] {
+  aspect-ratio: 16/9;
+} */

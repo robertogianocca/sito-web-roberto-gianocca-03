@@ -1,0 +1,7 @@
+@import "@vidstack/react/player/styles/base.css";
+@import "@vidstack/react/player/styles/default/sliders.css";
+@import "@vidstack/react/player/styles/default/icons.css";
+@import "@vidstack/react/player/styles/default/buttons.css";
+@import "@vidstack/react/player/styles/default/controls.css";
+@import "@vidstack/react/player/styles/default/gestures.css";
+@import "@vidstack/react/player/styles/default/time.css";

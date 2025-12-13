@@ -41,15 +41,22 @@ export default function Player({ vimeoId }) {
 
   const isPaused = paused;
   const isReady = canPlay;
+
   return (
     <>
+      {/* ==================== PLACEHOLDER IMAGE ==================== */}
+
       <div
-        className={`relative transition-all duration-500 ${
+        className={`relative transition-all duration-900 z-40 pointer-events-none ${
           isReady ? "opacity-0" : "opacity-100"
-        } z-50`}
+        }`}
       >
-        <div className="absolute inset-0 ">
-          <div className="aspect-video relative overflow-hidden">
+        {/* Red background layer */}
+        <div className="absolute inset-0 aspect-video bg-linear-to-t from-black/90 via-black/60 to-transparent  z-50"></div>
+
+        {/* Image layer behind */}
+        <div className="absolute inset-0 aspect-video z-40">
+          <div className="relative w-full h-full overflow-hidden">
             <Image
               src="/video/sugar-mama/sugar-mama-cover.jpg"
               fill
@@ -61,9 +68,15 @@ export default function Player({ vimeoId }) {
           </div>
         </div>
       </div>
+
+      {/* ============================================================ */}
+      {/*                           PLAYER                             */}
+      {/* ============================================================ */}
       <div>
         <MediaPlayer
-          className={!isReady && "opacity-0"}
+          key={vimeoId}
+          aspectRatio="16/9"
+          // className={!isReady && "opacity-0"}
           ref={player}
           src={src}
           playsInline

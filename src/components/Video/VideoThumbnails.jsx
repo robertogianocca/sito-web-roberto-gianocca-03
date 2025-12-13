@@ -31,6 +31,7 @@ export default function VideoThumbnails() {
         <Link href={`/video/${video.id}`}>
           <Image
             src={video.thumbnail}
+            draggable={false}
             width={1000}
             height={1000}
             alt={`${video.id}-thumbnail`}

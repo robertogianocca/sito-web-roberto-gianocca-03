@@ -25,7 +25,7 @@ export default function VideoLayoutContent({ children }) {
       <div
         className={`${
           isVideoListPage ? "block" : "hidden"
-        } col-span-1 sm:grid lg:block sm:grid-cols-2 gap-x-4 `}
+        } col-span-1 sm:grid lg:block sm:grid-cols-2 gap-x-4 overflow-hidden`}
       >
         <VideoThumbnails />
       </div>

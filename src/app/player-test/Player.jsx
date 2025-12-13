@@ -44,6 +44,13 @@ export default function Player({ vimeoId }) {
   const isFull = fullscreen;
   const isReady = canPlay;
 
+  const playerColor = {
+    icons: "green",
+    backBar: "green",
+    timeBar: "blue",
+    progressBar: "red",
+  };
+
   return (
     <>
       {/* ============================================================ */}
@@ -53,18 +60,18 @@ export default function Player({ vimeoId }) {
         <MediaPlayer key={vimeoId} aspectRatio="16/9" ref={player} src={src} playsInline>
           <MediaProvider />
           <Controls.Root className="vds-controls">
-            <Controls.Group className="vds-controls-group">
+            <Controls.Group className="vds-controls-group bg-linear-to-t from-black via-black/80 to-transparent">
               <div className="buttons-bar">
                 {/* ========== Left buttons containers ========== */}
                 <div className="flex flex-row items-center">
-                  <PlayButton className="vds-button">
+                  <PlayButton className="vds-button" style={{ color: playerColor.icons }}>
                     {isPaused ? (
                       <PlayIcon className="play-icon vds-icon" />
                     ) : (
                       <PauseIcon className="pause-icon vds-icon" />
                     )}
                   </PlayButton>
-                  <MuteButton className="vds-button">
+                  <MuteButton className="vds-button" style={{ color: playerColor.icons }}>
                     {isMuted || volume == 0 ? (
                       <MuteIcon className="mute-icon vds-icon" />
                     ) : volume < 0.5 ? (
@@ -76,21 +83,29 @@ export default function Player({ vimeoId }) {
                   {/* ========== VOLUME SLIDER CONTAINER ========== */}
                   <div className="w-25 hidden md:flex">
                     <VolumeSlider.Root className="vds-slider">
-                      <VolumeSlider.Track className="vds-slider-track" />
-                      <VolumeSlider.TrackFill className="vds-slider-track-fill vds-slider-track" />
+                      <VolumeSlider.Track
+                        className="vds-slider-track"
+                        style={{ backgroundColor: playerColor.backBar }}
+                      />
+                      <VolumeSlider.TrackFill
+                        className="vds-slider-track-fill vds-slider-track"
+                        style={{ backgroundColor: playerColor.timeBar }}
+                      />
                       <VolumeSlider.Thumb className="vds-slider-thumb" />
                     </VolumeSlider.Root>
                   </div>
                 </div>
                 {/* ========== Central times container ========== */}
-                <div className="vds-time-group">
+                <div className="vds-time-group" style={{ color: playerColor.icons }}>
                   <Time className="vds-time" type="current" />
-                  <div className="vds-time-divider">/</div>
+                  <p className="vds-time-divider" style={{ color: playerColor.icons }}>
+                    /
+                  </p>
                   <Time className="vds-time" type="duration" />
                 </div>
                 {/* ========== Right buttons containers ========== */}
                 <div className="flex flex-row items-center">
-                  <FullscreenButton className="vds-button">
+                  <FullscreenButton className="vds-button" style={{ color: playerColor.icons }}>
                     {isFull ? (
                       <FullscreenExitIcon className="fs-exit-icon vds-icon" />
                     ) : (
@@ -101,9 +116,18 @@ export default function Player({ vimeoId }) {
               </div>
               <div className="time-slider">
                 <TimeSlider.Root className="vds-time-slider vds-slider">
-                  <TimeSlider.Track className="vds-slider-track" />
-                  <TimeSlider.TrackFill className="vds-slider-track-fill vds-slider-track" />
-                  <TimeSlider.Progress className="vds-slider-progress vds-slider-track" />
+                  <TimeSlider.Track
+                    className="vds-slider-track rounded-none!"
+                    style={{ backgroundColor: playerColor.backBar }}
+                  />
+                  <TimeSlider.TrackFill
+                    className="vds-slider-track-fill vds-slider-track rounded-none!"
+                    style={{ backgroundColor: playerColor.timeBar }}
+                  />
+                  <TimeSlider.Progress
+                    className="vds-slider-progress vds-slider-track rounded-none!"
+                    style={{ backgroundColor: playerColor.progressBar }}
+                  />
                   <TimeSlider.Thumb className="vds-slider-thumb" />
                   <TimeSlider.Preview className="vds-slider-preview">
                     <TimeSlider.Value className="vds-slider-value" />

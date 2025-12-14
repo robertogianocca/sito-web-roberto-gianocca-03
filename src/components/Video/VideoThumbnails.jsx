@@ -30,6 +30,7 @@ export default function VideoThumbnails() {
       >
         <Link href={`/video/${video.id}`}>
           <Image
+            unoptimized={true} // Bypasses Next.js optimization cache
             src={video.thumbnail}
             draggable={false}
             width={3840}

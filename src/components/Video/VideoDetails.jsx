@@ -1,5 +1,8 @@
+"use client";
+
 import { videoDataBase } from "@/data/video-data-base";
 import Player from "@/components/Video/Player";
+import { motion } from "motion/react";
 
 export default function VideoDetails({ videoId = "sugar-mama" }) {
   // Find the video by matching the id property
@@ -19,10 +22,37 @@ export default function VideoDetails({ videoId = "sugar-mama" }) {
   return (
     <>
       <Player video={foundVideo} />
-      <div className="space-y-4">
-        <h2 className="text-xl font-semibold">{foundVideo.title}</h2>
-        {foundVideo.subtitle && <p className="text-slate-300">{foundVideo.subtitle}</p>}
-      </div>
+      {/* Mobile Title and Subtitle with animation */}
+      <motion.div
+        key={`title-${foundVideo.id}`}
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.2,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        className="lg:hidden flex flex-col justify-center h-17 text-credits font-jet-brains tracking-tight"
+      >
+        <h2 className="text-xs">{foundVideo.title}</h2>
+        <h3 className="text-xs">{foundVideo.subtitle}</h3>
+      </motion.div>
+      {/* Desktop Title and Subtitle with animation */}
+      <motion.div
+        key={`title-${foundVideo.id}`}
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.2,
+          ease: [0.16, 1, 0.3, 1],
+        }}
+        className="hidden lg:flex items-baseline gap-8 mt-3 text-credits"
+      >
+        <h2 className="text-3xl">{foundVideo.title}</h2>
+        <h3 className="text-base">{foundVideo.subtitle}</h3>
+      </motion.div>
+      <div>{foundVideo.description}</div>
     </>
   );
 }

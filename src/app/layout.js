@@ -1,15 +1,18 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/Video/PageTransition";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Configure the font
+const inter = Inter({
   subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetBrains = JetBrains_Mono({
   subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jet-brains",
 });
 
 export const metadata = {
@@ -20,7 +23,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${inter.variable} ${jetBrains.variable} antialiased text-gray-400 text-xs font-inter`}
+      >
         <PageTransition>{children}</PageTransition>
       </body>
     </html>

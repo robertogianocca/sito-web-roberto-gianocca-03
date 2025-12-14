@@ -81,8 +81,27 @@ export default function Player({ vimeoId }) {
       {/*                           PLAYER                             */}
       {/* ============================================================ */}
       <div>
-        <MediaPlayer key={vimeoId} aspectRatio="16/9" ref={player} src={src} playsInline>
+        <MediaPlayer
+          viewType="video"
+          key={vimeoId}
+          aspectRatio="16/9"
+          ref={player}
+          src={src}
+          playsInline
+        >
           <MediaProvider />
+          <Gesture
+            event="click"
+            action="toggle:paused"
+            className="absolute inset-0 z-10 pointer-events-none lg:pointer-events-auto"
+            aria-hidden="false"
+          />
+          <Gesture className="vds-gesture bg-blue-200" event="click" action="toggle:paused" />
+          <Gesture className="vds-gesture" event="pointerup" action="toggle:paused" />
+          <Gesture className="vds-gesture" event="pointerup" action="toggle:controls" />
+          <Gesture className="vds-gesture" event="dblpointerup" action="seek:-10" />
+          <Gesture className="vds-gesture" event="dblpointerup" action="seek:10" />
+          <Gesture className="vds-gesture" event="dblpointerup" action="toggle:fullscreen" />
           <Controls.Root
             // hideDelay={2000}
             // hideOnMouseLeave={true}

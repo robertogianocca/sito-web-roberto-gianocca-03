@@ -18,7 +18,7 @@ export default function VideoDetails({ videoId = "sugar-mama" }) {
 
   return (
     <>
-      <Player vimeoId={foundVideo.vimeoId} />
+      <Player video={foundVideo} />
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">{foundVideo.title}</h2>
         {foundVideo.subtitle && <p className="text-slate-300">{foundVideo.subtitle}</p>}

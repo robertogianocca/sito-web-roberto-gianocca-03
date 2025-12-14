@@ -28,9 +28,9 @@ import {
   FullscreenExitIcon,
 } from "@vidstack/react/icons";
 
-export default function Player({ vimeoId }) {
+export default function Player({ video }) {
   const src = {
-    src: `vimeo/1132948199`,
+    src: `vimeo/${video.vimeoId}`,
     type: "video/vimeo",
   };
 
@@ -67,7 +67,7 @@ export default function Player({ vimeoId }) {
         <div className="absolute inset-0 aspect-video z-40">
           <div className="relative w-full h-full overflow-hidden">
             <Image
-              src="/video/sugar-mama/sugar-mama-cover.jpg"
+              src={video.cover}
               fill
               className="object-cover filter blur-sm scale-101"
               alt="cover"
@@ -83,7 +83,7 @@ export default function Player({ vimeoId }) {
       <div>
         <MediaPlayer
           viewType="video"
-          key={vimeoId}
+          key={video.id}
           aspectRatio="16/9"
           ref={player}
           src={src}

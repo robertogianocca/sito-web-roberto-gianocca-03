@@ -32,8 +32,8 @@ export default function VideoThumbnails() {
           <Image
             src={video.thumbnail}
             draggable={false}
-            width={1000}
-            height={1000}
+            width={3840}
+            height={2160}
             alt={`${video.id}-thumbnail`}
             className={`transition-all duration-300 ${
               isSelected ? "scale-105" : "brightness-25 hover:brightness-65 hover:scale-102"

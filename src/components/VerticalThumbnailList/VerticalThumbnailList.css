@@ -1,0 +1,10 @@
+.verticalThumbnailContainer {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.verticalThumbnailContainer::-webkit-scrollbar {
+  display: none;
+}
+

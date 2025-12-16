@@ -6,69 +6,79 @@ import "./VerticalThumbnailList.css";
 
 export default function VerticalThumbnailList({ images = [] }) {
   const containerRef = useRef(null);
-  const [focusedIndex, setFocusedIndex] = useState(0);
   const itemRefs = useRef([]);
+  const [focusedIndex, setFocusedIndex] = useState(0);
+
+  // Keep refs in sync with images length
+  useEffect(() => {
+    itemRefs.current = itemRefs.current.slice(0, images.length);
+  }, [images.length]);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
+    let rafId = null;
+
     const handleScroll = () => {
-      const containerRect = container.getBoundingClientRect();
-      const centerY = containerRect.top + containerRect.height / 2;
+      if (rafId !== null) return;
 
-      let closestIndex = 0;
-      let closestDistance = Infinity;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
 
-      itemRefs.current.forEach((item, index) => {
-        if (!item) return;
-        const itemRect = item.getBoundingClientRect();
-        const itemCenterY = itemRect.top + itemRect.height / 2;
-        const distance = Math.abs(itemCenterY - centerY);
+        const containerRect = container.getBoundingClientRect();
+        const centerY = containerRect.top + containerRect.height / 2;
 
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = index;
+        let closestIndex = focusedIndex;
+        let closestDistance = Infinity;
+
+        itemRefs.current.forEach((item, index) => {
+          if (!item) return;
+
+          const rect = item.getBoundingClientRect();
+          const itemCenterY = rect.top + rect.height / 2;
+          const distance = Math.abs(itemCenterY - centerY);
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        // Early bailout to avoid unnecessary state updates
+        if (closestIndex !== focusedIndex) {
+          setFocusedIndex(closestIndex);
         }
       });
-
-      setFocusedIndex(closestIndex);
     };
 
     container.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    handleScroll(); // initial check
 
     return () => {
       container.removeEventListener("scroll", handleScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
-  }, [images]);
+  }, [images, focusedIndex]);
 
   return (
     <div
       ref={containerRef}
       className="verticalThumbnailContainer h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth"
     >
-
       <div className="flex flex-col items-center">
-        {/* Top spacer to center first item */}
+        {/* Top spacer */}
         <div className="h-[50vh] flex-shrink-0" />
-        
+
         {images.map((image, index) => {
           const distance = Math.abs(index - focusedIndex);
           const maxDistance = 2;
-          const normalizedDistance = Math.min(distance / maxDistance, 1);
-          
-          // Opacity: 1 at center, decreasing as distance increases
-          const opacity = Math.max(0.3, 1 - normalizedDistance * 0.7);
-          
-          // Blur: 0 at center, increasing as distance increases
-          const blur = normalizedDistance * 8;
-          
-          // Brightness: 1 at center, decreasing as distance increases (darker)
-          const brightness = Math.max(0.4, 1 - normalizedDistance * 0.6);
-          
-          // Scale: 1 at center, slightly smaller as distance increases
-          const scale = Math.max(0.85, 1 - normalizedDistance * 0.15);
+          const normalized = Math.min(distance / maxDistance, 1);
+
+          const opacity = Math.max(0.3, 1 - normalized * 0.7);
+          const blur = normalized * 8;
+          const brightness = Math.max(0.4, 1 - normalized * 0.6);
+          const scale = Math.max(0.85, 1 - normalized * 0.15);
 
           return (
             <div
@@ -95,11 +105,10 @@ export default function VerticalThumbnailList({ images = [] }) {
             </div>
           );
         })}
-        
-        {/* Bottom spacer to center last item */}
+
+        {/* Bottom spacer */}
         <div className="h-[50vh] flex-shrink-0" />
       </div>
     </div>
   );
 }
-

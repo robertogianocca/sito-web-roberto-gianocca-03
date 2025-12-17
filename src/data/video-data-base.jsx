@@ -35,7 +35,11 @@ export const videoDataBase = [
     id: "carie",
     vimeoId: "676793805",
     title: "CARIE",
-    subtitle: "Sottotitolo cave carrara.",
+    subtitle: (
+      <>
+        A sports documentary film about <span className="italic">Carrara’s quarries</span>
+      </>
+    ),
     credits: carieDescription.credits,
     links: carieDescription.links,
     description: carieDescription.description,

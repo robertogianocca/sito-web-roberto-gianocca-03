@@ -20,9 +20,8 @@ export default function VideoDetails({ videoId = "sugar-mama" }) {
   }
 
   return (
-    <div className="">
-      <Player video={foundVideo} />
-      {/* Mobile Title and Subtitle with animation */}
+    <>
+      {/* ==================== MOBILE - TITLE AND SUBTITLE ==================== */}
       <motion.div
         key={`title-${foundVideo.id}`}
         initial={{ opacity: 0, y: 15 }}
@@ -32,12 +31,13 @@ export default function VideoDetails({ videoId = "sugar-mama" }) {
           delay: 0.2,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className="lg:hidden flex flex-col justify-center h-17 text-credits font-jet-brains tracking-tight"
+        className="lg:hidden flex flex-col justify-center text-credits font-jet-brains tracking-tight"
       >
         <h2 className="text-xs">{foundVideo.title}</h2>
         <h3 className="text-xs">{foundVideo.subtitle}</h3>
       </motion.div>
-      {/* Desktop Title and Subtitle with animation */}
+      <Player video={foundVideo} />
+      {/* ==================== DESKTOP - TITLE AND SUBTITLE ==================== */}
       <motion.div
         key={`title-${foundVideo.id}`}
         initial={{ opacity: 0, y: 15 }}
@@ -55,6 +55,6 @@ export default function VideoDetails({ videoId = "sugar-mama" }) {
       <div>{foundVideo.credits}</div>
       <div>{foundVideo.links}</div>
       <div>{foundVideo.description}</div>
-    </div>
+    </>
   );
 }

@@ -35,7 +35,7 @@ export const videoDataBase = [
     id: "carie",
     vimeoId: "676793805",
     title: "CARIE",
-    subtitle: "",
+    subtitle: "Sottotitolo cave carrara.",
     credits: carieDescription.credits,
     links: carieDescription.links,
     description: carieDescription.description,

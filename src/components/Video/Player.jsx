@@ -80,7 +80,7 @@ export default function Player({ video }) {
       {/* ============================================================ */}
       {/*                           PLAYER                             */}
       {/* ============================================================ */}
-      <div>
+      <div className="flex">
         <MediaPlayer
           viewType="video"
           key={video.id}

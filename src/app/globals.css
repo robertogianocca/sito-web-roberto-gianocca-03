@@ -52,6 +52,15 @@
   .custom-link {
     @apply underline text-amber-500 hover:text-amber-400 underline-offset-3;
   }
+
+  .p-custom {
+    @apply pt-2 lg:pt-6;
+  }
+
+  .scrollbar-hide {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+  }
 }
 
 @media (prefers-color-scheme: dark) {

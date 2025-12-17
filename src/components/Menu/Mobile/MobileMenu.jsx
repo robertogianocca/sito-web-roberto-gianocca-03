@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function MenuBar({ onNavigate }) {
+export default function MobileMenu({ onNavigate }) {
   return (
     <nav className="flex flex-col justify-center text-green-400 opacity-45">
       <div>

@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import MenuBar from "./MenuBar";
+import MobileMenu from "./MobileMenu";
 
-export default function MobileMenu() {
+export default function HamburgerButton() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
@@ -78,7 +78,7 @@ export default function MobileMenu() {
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="w-full max-w-sm rounded-3xl border border-white/10 bg-black/80 p-6 shadow-2xl"
               >
-                <MenuBar onNavigate={closeMenu} />
+                <MobileMenu onNavigate={closeMenu} />
               </motion.div>
             </motion.div>
           </>

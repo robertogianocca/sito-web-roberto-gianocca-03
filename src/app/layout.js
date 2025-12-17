@@ -1,7 +1,7 @@
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/Video/PageTransition";
-import MobileMenu from "@/components/Menu/MobileMenu";
+import HamburgerButton from "@/components/Menu/Mobile/HamburgerMenu";
 
 // Configure the font
 const inter = Inter({
@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         className={`${inter.variable} ${jetBrains.variable} antialiased text-gray-400 text-xs font-inter`}
       >
         <PageTransition>
-          <MobileMenu />
+          <HamburgerButton />
           {children}
         </PageTransition>
       </body>

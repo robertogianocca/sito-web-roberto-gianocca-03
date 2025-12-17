@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${jetBrains.variable} antialiased text-gray-400 text-xs font-inter`}
+        className={`${inter.variable} ${jetBrains.variable} antialiased text-yellow-100 text-xs font-inter`}
       >
         <PageTransition>
           <HamburgerButton />

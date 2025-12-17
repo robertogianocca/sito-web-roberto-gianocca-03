@@ -39,8 +39,8 @@ export const carieDescription = {
     <LinkButton text={"@achillemauri.eu"} url={"https://www.instagram.com/achillemauri.eu/"} />
   ),
   description: (
-    <div className="relative w-full flex flex-col flex-nowrap lg:grid grid-cols-2 gap-10 font-inter text-xs text-green-300 mb-4 mt-4 opacity-60">
-      <ExpandableText className="text-green-300">
+    <div className="relative w-full flex flex-col flex-nowrap lg:grid grid-cols-2 gap-10 font-inter text-xs mb-4 mt-4 ">
+      <ExpandableText className="">
         "Carie è il risultato di un viaggio durato mesi, nato grazie all’ossessione di Marzio per
         quegli spazi che una persona normale riterrebbe, semplicemente, brutti. Dopo la prima
         giornata passata in quelle voragini bianche ci siamo resi conto che la situazione era ben
@@ -53,7 +53,7 @@ export const carieDescription = {
         il fascino con cui il marmo, elemento apparentemente privo di vita, aveva catturato le
         nostre menti."
       </ExpandableText>
-      <ExpandableText className="text-amber-300">
+      <ExpandableText className="text-emerald-200">
         "Carie is the result of a journey that lasted several months, born from Marzio’s obsession
         with those spaces that an ordinary person would simply consider ugly. After the first day
         spent in those white chasms, we realized that the situation was far more complex than we had

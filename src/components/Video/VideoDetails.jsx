@@ -20,7 +20,7 @@ export default function VideoDetails({ videoId = "sugar-mama" }) {
   }
 
   return (
-    <>
+    <div className="">
       <Player video={foundVideo} />
       {/* Mobile Title and Subtitle with animation */}
       <motion.div
@@ -52,7 +52,9 @@ export default function VideoDetails({ videoId = "sugar-mama" }) {
         <h2 className="text-3xl">{foundVideo.title}</h2>
         <h3 className="text-base">{foundVideo.subtitle}</h3>
       </motion.div>
+      <div>{foundVideo.credits}</div>
+      <div>{foundVideo.links}</div>
       <div>{foundVideo.description}</div>
-    </>
+    </div>
   );
 }

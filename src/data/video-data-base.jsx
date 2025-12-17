@@ -1,4 +1,6 @@
 import { videoDescriptions } from "./video-descriptions";
+import { sugarMamaDescription } from "@/data/video-descriptions/sugar-mama-descriptions";
+import { carieDescription } from "@/data/video-descriptions/carie-descriptions";
 
 export const videoDataBase = [
   {
@@ -10,7 +12,9 @@ export const videoDataBase = [
         A music video for <span className="italic">Matt Pascale & The Stomps</span>
       </>
     ),
-    description: videoDescriptions["sugar-mama"],
+    credits: sugarMamaDescription.credits,
+    links: sugarMamaDescription.links,
+    description: sugarMamaDescription.description,
     cover: "/video/sugar-mama/sugar-mama-cover.webp",
     thumbnail: "/video/sugar-mama/sugar-mama-thumb-cover.webp",
   },
@@ -32,7 +36,9 @@ export const videoDataBase = [
     vimeoId: "676793805",
     title: "CARIE",
     subtitle: "",
-    description: videoDescriptions["carie"],
+    credits: carieDescription.credits,
+    links: carieDescription.links,
+    description: carieDescription.description,
     cover: "/video/carie/carie-cover.webp",
     thumbnail: "/video/carie/carie-thumb-cover.webp",
   },

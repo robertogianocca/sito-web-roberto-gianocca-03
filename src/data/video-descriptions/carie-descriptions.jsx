@@ -1,6 +1,7 @@
 import CreditsName from "@/components/Video/Credits/CreditsName";
 import LinkButton from "@/components/Button/LinkButton";
 import Link from "next/link";
+import ExpandableText from "@/components/Text/ExpandableText";
 
 export const carieDescription = {
   credits: (
@@ -39,7 +40,7 @@ export const carieDescription = {
   ),
   description: (
     <div className="relative w-full flex flex-col flex-nowrap lg:grid grid-cols-2 gap-10 font-inter text-xs text-green-300 mb-4 mt-4 opacity-60">
-      <p>
+      <ExpandableText className="text-green-300">
         "Carie è il risultato di un viaggio durato mesi, nato grazie all’ossessione di Marzio per
         quegli spazi che una persona normale riterrebbe, semplicemente, brutti. Dopo la prima
         giornata passata in quelle voragini bianche ci siamo resi conto che la situazione era ben
@@ -51,8 +52,8 @@ export const carieDescription = {
         secondo un punto di vista direttamente collegato alla sua attività. A collegarci tutti c’era
         il fascino con cui il marmo, elemento apparentemente privo di vita, aveva catturato le
         nostre menti."
-      </p>
-      <p className="text-amber-300">
+      </ExpandableText>
+      <ExpandableText className="text-amber-300">
         "Carie is the result of a journey that lasted several months, born from Marzio’s obsession
         with those spaces that an ordinary person would simply consider ugly. After the first day
         spent in those white chasms, we realized that the situation was far more complex than we had
@@ -63,7 +64,7 @@ export const carieDescription = {
         then us, the climbers. Each individual conceived of the Apuan Alps quarries from a point of
         view directly connected to their own activity. What united us all was the fascination with
         which marble—an element seemingly devoid of life—had captured our minds."
-      </p>
+      </ExpandableText>
     </div>
   ),
 };

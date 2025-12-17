@@ -53,7 +53,7 @@ export default async function VideoPageId({ params }) {
         </div>
       </div>
       {/* ==================== VIDEO DETAILS ==================== */}
-      <div className="col-span-3 flex flex-col h-dvh p-custom overflow-scroll scrollbar-hide">
+      <div className="col-span-3 flex flex-col h-dvh p-custom overflow-scroll scrollbar-hide fade-out-bottom">
         <VideoDetails videoId={id} />
       </div>
       {/* // <VideoContentTransition> */}

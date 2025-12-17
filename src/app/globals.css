@@ -61,6 +61,11 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE 10+ */
   }
+
+  .fade-out-bottom {
+    mask-image: linear-gradient(to bottom, black calc(100% - 200px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 200px), transparent 100%);
+  }
 }
 
 @media (prefers-color-scheme: dark) {

@@ -140,7 +140,7 @@ export default function Player({ video }) {
                         className="vds-slider-track-fill vds-slider-track"
                         style={{ backgroundColor: playerColor.timeBar }}
                       />
-                      <VolumeSlider.Thumb className="vds-slider-thumb" />
+                      <VolumeSlider.Thumb className="vds-slider-thumb opacity-100! bg-red-500! border-none!" />
                     </VolumeSlider.Root>
                   </div>
                 </div>

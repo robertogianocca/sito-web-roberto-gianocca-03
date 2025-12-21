@@ -1,7 +1,7 @@
 // ========== VIDEO ID PAGE ========== //
 
 import { videoDataBase } from "@/data/video-data-base";
-import VideoDetails from "@/components/Video/VideoDetails";
+import VideoDetails from "@/components/Video/VideoDetails/VideoDetails";
 import { notFound } from "next/navigation";
 import VideoContentTransition from "@/components/Video/VideoContentTransition";
 
@@ -33,7 +33,7 @@ export default async function VideoPageId({ params }) {
   const { id } = await params;
 
   // Validate that the video exists
-  const video = videoDataBase.find((v) => v.id === id);
+  const video = videoDataBase.find((video) => video.id === id);
   if (!video) {
     notFound();
   }

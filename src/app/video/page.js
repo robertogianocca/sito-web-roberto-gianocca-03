@@ -1,7 +1,7 @@
 // ========== VIDEO HOME PAGE ==========
 
 import { videoDataBase } from "@/data/video-data-base";
-import VideoDetails from "@/components/Video/VideoDetails";
+import VideoDetails from "@/components/Video/VideoDetails/VideoDetails";
 
 export default function VideoPage() {
   // Show first video (sugar-mama) as default on desktop

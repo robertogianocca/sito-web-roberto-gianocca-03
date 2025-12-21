@@ -25,10 +25,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${jetBrains.variable} antialiased text-yellow-100 text-xs font-inter`}
+        className={`${inter.variable} ${jetBrains.variable} antialiased text-custom-white-base text-xs font-inter`}
       >
         <PageTransition>
-          <HamburgerButton />
+          {/* <HamburgerButton /> */}
           {children}
         </PageTransition>
       </body>

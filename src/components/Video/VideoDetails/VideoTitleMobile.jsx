@@ -15,8 +15,8 @@ export default function VideoTitleMobile({ video }) {
       }}
       className="lg:hidden flex flex-col justify-center tracking-tight pb-4 pt-2"
     >
-      <h2 className="text-base">{video.title}</h2>
-      <h3 className="text-sm">{video.subtitle}</h3>
+      <h2 className="text-3xl">{video.title}</h2>
+      <h3 className="text-base">{video.subtitle}</h3>
     </motion.div>
   );
 }

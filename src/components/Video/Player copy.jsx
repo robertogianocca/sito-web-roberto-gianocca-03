@@ -45,11 +45,10 @@ export default function Player({ video }) {
   const isReady = canPlay;
 
   const playerColor = {
-    icons: "white",
-    backBar: "grey",
-    timeBar: "white",
-    progressBar: "grey",
-    volumeDot: "white",
+    icons: "green",
+    backBar: "green",
+    timeBar: "blue",
+    progressBar: "red",
   };
 
   return (
@@ -62,7 +61,7 @@ export default function Player({ video }) {
         }`}
       >
         {/* Red background layer */}
-        {/* <div className="absolute inset-0 aspect-video bg-linear-to-t from-black/90 via-black/60 to-transparent z-50"></div> */}
+        <div className="absolute inset-0 aspect-video bg-linear-to-t from-black/90 via-black/60 to-transparent  z-50"></div>
 
         {/* Image layer behind */}
         <div className="absolute inset-0 aspect-video z-40">
@@ -94,43 +93,33 @@ export default function Player({ video }) {
           <Gesture
             event="click"
             action="toggle:paused"
-            className="absolute inset-0"
+            className="absolute inset-0 z-10 pointer-events-none lg:pointer-events-auto"
             aria-hidden="false"
           />
-          <Controls.Root className="vds-controls justify-end">
-            <div className="w-full h-25 absolute bg-linear-to-t from-black via-black/85 to-transparent"></div>
-            <Controls.Group className="vds-controls-group ">
-              {/* ==================== BUTTONS CONTAINER ==================== */}
-              <div className="buttons-bar flex flex-row justify-between px-3 pb-1.5">
-                {/* ========== LEFT BUTTONS CONTAINER ========== */}
+          <Gesture className="vds-gesture bg-blue-200" event="click" action="toggle:paused" />
+          <Gesture className="vds-gesture" event="pointerup" action="toggle:paused" />
+          <Gesture className="vds-gesture" event="pointerup" action="toggle:controls" />
+          <Gesture className="vds-gesture" event="dblpointerup" action="seek:-10" />
+          <Gesture className="vds-gesture" event="dblpointerup" action="seek:10" />
+          <Gesture className="vds-gesture" event="dblpointerup" action="toggle:fullscreen" />
+          <Controls.Root
+            // hideDelay={2000}
+            // hideOnMouseLeave={true}
+            //I due attributi sono collegati direttamente ad un'animazione CSS e non funzionano indipendentemente
+            // className="vds-controls absolute inset-0 z-30 justify-end h-full w-full flex flex-col data-visible:opacity-100 easy-out duration-400 opacity-0 transition-opacity pointer-events-none bg-linear-to-t from-black/70 via-black/60 to-transparent"
+            className="vds-controls"
+          >
+            <Controls.Group className="vds-controls-group bg-linear-to-t from-black via-black/80 to-transparent">
+              <div className="buttons-bar">
+                {/* ========== Left buttons containers ========== */}
                 <div className="flex flex-row items-center">
-                  {/* ========== PLAY BUTTON ========== */}
-                  <PlayButton
-                    className="flex w-25 h-8 justify-center items-center bg-white rounded-2xl pl-1 pr-3 mr-3"
-                    // style={{ color: playerColor.icons }}
-                    style={{ color: "black" }}
-                  >
+                  <PlayButton className="vds-button" style={{ color: playerColor.icons }}>
                     {isPaused ? (
-                      <>
-                        <PlayIcon className="play-icon vds-icon" size={30} />
-                        <p className="text-base font-bold">Play</p>
-                      </>
+                      <PlayIcon className="play-icon vds-icon" />
                     ) : (
-                      <>
-                        <PauseIcon className="pause-icon vds-icon" size={30} />
-                        <p className="text-base font-bold">Pause</p>
-                      </>
+                      <PauseIcon className="pause-icon vds-icon" />
                     )}
                   </PlayButton>
-
-                  <FullscreenButton className="vds-button" style={{ color: playerColor.icons }}>
-                    {isFull ? (
-                      <FullscreenExitIcon className="fs-exit-icon vds-icon" />
-                    ) : (
-                      <FullscreenIcon className="fs-enter-icon vds-icon" />
-                    )}
-                  </FullscreenButton>
-                  {/* ========== Mute Button ========== */}
                   <MuteButton className="vds-button" style={{ color: playerColor.icons }}>
                     {isMuted || volume == 0 ? (
                       <MuteIcon className="mute-icon vds-icon" />
@@ -140,7 +129,7 @@ export default function Player({ video }) {
                       <VolumeHighIcon className="volume-high-icon vds-icon" />
                     )}
                   </MuteButton>
-                  {/* ========== Volume Slider ========== */}
+                  {/* ========== VOLUME SLIDER CONTAINER ========== */}
                   <div className="w-25 hidden md:flex">
                     <VolumeSlider.Root className="vds-slider">
                       <VolumeSlider.Track
@@ -151,24 +140,27 @@ export default function Player({ video }) {
                         className="vds-slider-track-fill vds-slider-track"
                         style={{ backgroundColor: playerColor.timeBar }}
                       />
-                      <VolumeSlider.Thumb
-                        className="vds-slider-thumb opacity-100! border-none!"
-                        style={{ backgroundColor: playerColor.volumeDot }}
-                      />
+                      <VolumeSlider.Thumb className="vds-slider-thumb opacity-100! bg-red-500! border-none!" />
                     </VolumeSlider.Root>
                   </div>
                 </div>
-
-                {/* ========== RIGHT BUTTONS CONTAINER ========== */}
+                {/* ========== Central times container ========== */}
+                <div className="vds-time-group" style={{ color: playerColor.icons }}>
+                  <Time className="vds-time" type="current" />
+                  <p className="vds-time-divider" style={{ color: playerColor.icons }}>
+                    /
+                  </p>
+                  <Time className="vds-time" type="duration" />
+                </div>
+                {/* ========== Right buttons containers ========== */}
                 <div className="flex flex-row items-center">
-                  {/* ========== Time ========== */}
-                  <div className="vds-time-group" style={{ color: playerColor.icons }}>
-                    <Time className="vds-time" type="current" />
-                    <p className="vds-time-divider" style={{ color: playerColor.icons }}>
-                      /
-                    </p>
-                    <Time className="vds-time" type="duration" />
-                  </div>
+                  <FullscreenButton className="vds-button" style={{ color: playerColor.icons }}>
+                    {isFull ? (
+                      <FullscreenExitIcon className="fs-exit-icon vds-icon" />
+                    ) : (
+                      <FullscreenIcon className="fs-enter-icon vds-icon" />
+                    )}
+                  </FullscreenButton>
                 </div>
               </div>
               <div className="time-slider">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 
 import {
@@ -28,7 +28,7 @@ import {
   FullscreenExitIcon,
 } from "@vidstack/react/icons";
 
-export default function Player({ video }) {
+export default function Player({ video, autoplay = false }) {
   const src = {
     src: `vimeo/${video.vimeoId}`,
     type: "video/vimeo",
@@ -43,6 +43,23 @@ export default function Player({ video }) {
   const isMuted = muted;
   const isFull = fullscreen;
   const isReady = canPlay;
+
+  // Handle autoplay when triggered and player is ready
+  useEffect(() => {
+    if (autoplay && isReady && player.current) {
+      // Use vidstack's built-in play method
+      // The MediaPlayer ref exposes the player instance
+      const mediaPlayer = player.current;
+
+      // Vidstack MediaPlayer ref exposes play() method directly
+      if (mediaPlayer && typeof mediaPlayer.play === "function") {
+        mediaPlayer.play().catch((error) => {
+          // Autoplay might be blocked by browser, handle gracefully
+          console.log("Autoplay prevented:", error);
+        });
+      }
+    }
+  }, [autoplay, isReady]);
 
   const playerColor = {
     icons: "green",

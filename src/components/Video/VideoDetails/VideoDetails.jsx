@@ -35,7 +35,7 @@ export default function VideoDetails({ videoId = "sugar-mama" }) {
         <video width="720" height="1280" autoPlay loop muted playsInline className="lg:hidden">
           <source src="/video/video-sugar-cover.mp4" type="video/mp4" />
         </video>
-        {/* Play Button */}
+        {/* ==================== MOBILE - PLAY VIDEO BUTTON ==================== */}
         <button
           onClick={handlePlayClick}
           className="lg:hidden mt-4 w-full py-4 px-6 bg-black/80 hover:bg-black/90 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-lg font-medium"

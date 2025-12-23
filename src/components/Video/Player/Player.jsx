@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { MediaPlayer, MediaProvider, Gesture, Controls, useMediaStore } from "@vidstack/react";
 
-import PlayerPlaceholder from "./PlayerPlaceholder";
+import PlayerPlaceholderVideo from "./PlayerPlaceholderVideo";
 import ControlsBackground from "./ControlsBackground";
 import CustomPlayButton from "./CustomPlayButton";
 import CustomFullscreenButton from "./CustomFullscreenButton";
@@ -34,7 +34,7 @@ export default function Player({ video }) {
 
   return (
     <>
-      <PlayerPlaceholder cover={video.cover} isReady={isReady} />
+      <PlayerPlaceholderVideo />
 
       <div className="flex">
         <MediaPlayer

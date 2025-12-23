@@ -45,6 +45,8 @@ export default function Player({ video }) {
   const isReady = canPlay;
 
   const playerColor = {
+    playButtonBg: "white",
+    playButtonText: "black",
     icons: "white",
     backBar: "grey",
     timeBar: "white",
@@ -106,9 +108,12 @@ export default function Player({ video }) {
                 <div className="flex flex-row items-center">
                   {/* ========== PLAY BUTTON ========== */}
                   <PlayButton
-                    className="flex w-25 h-8 justify-center items-center bg-white rounded-2xl pl-1 pr-3 mr-3"
+                    className="flex w-25 h-8 justify-center items-center rounded-2xl pl-1 pr-3 mr-3 cursor-pointer hover:bg-gray-300!"
                     // style={{ color: playerColor.icons }}
-                    style={{ color: "black" }}
+                    style={{
+                      color: playerColor.playButtonText,
+                      backgroundColor: playerColor.playButtonBg,
+                    }}
                   >
                     {isPaused ? (
                       <>
@@ -131,7 +136,7 @@ export default function Player({ video }) {
                     )}
                   </FullscreenButton>
                   {/* ========== Mute Button ========== */}
-                  <MuteButton className="vds-button" style={{ color: playerColor.icons }}>
+                  <MuteButton className="vds-button mr-1" style={{ color: playerColor.icons }}>
                     {isMuted || volume == 0 ? (
                       <MuteIcon className="mute-icon vds-icon" />
                     ) : volume < 0.5 ? (

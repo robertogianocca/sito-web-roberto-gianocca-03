@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { videoDataBase } from "@/data/video-data-base";
-import Player from "@/components/Video/Player";
+import Player from "@/components/Video/Player/Player";
 import VideoTitle from "@/components/Video/VideoDetails/VideoTitle";
 import VideoTitleMobile from "@/components/Video/VideoDetails/VideoTitleMobile";
 
@@ -56,9 +56,7 @@ export default function VideoDetails({ videoId = "sugar-mama" }) {
           {/* ==================== MOBILE - TITLE AND SUBTITLE ==================== */}
         </div>
       </div>
-
       <Player video={video} />
-
       {/* ==================== DESKTOP - TITLE AND SUBTITLE ==================== */}
       <VideoTitle video={video} />
       <div>{video.credits}</div>

@@ -1,17 +1,12 @@
 @import "tailwindcss";
 @import "../components/Video/Player/Player.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme {
   /* ========== COLORS ========== */
   --color-player-controls: oklch(72.3% 0.219 149.579);
   --color-credits: #36a9c3;
   --color-credits-name: #ff97f5;
-  --color-custom-white-base: #fffdf5;
+  --color-custom-white-base: #fffef5;
 
   /* ========== CREDITS ========== */
 
@@ -29,6 +24,8 @@
   /* ========== FONT ========== */
   --font-inter: var(--font-inter);
   --font-jet-brains: var(--font-jet-brains);
+  --font-nunito-sans: var(--font-nunito-sans);
+  --font-roboto: var(--font-roboto);
 
   /* ========== TEXT ========== */
   --text-2xs: 0.8rem;
@@ -70,8 +67,4 @@
     mask-image: linear-gradient(to bottom, black calc(100% - 200px), transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 200px), transparent 100%);
   }
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
 }

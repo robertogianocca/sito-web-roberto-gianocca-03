@@ -15,8 +15,10 @@ export const videoDataBase = [
     credits: sugarMamaDescription.credits,
     links: sugarMamaDescription.links,
     description: sugarMamaDescription.description,
-    cover: "/video/sugar-mama/sugar-mama-cover.webp",
-    thumbnail: "/video/sugar-mama/sugar-mama-thumb-cover.webp",
+    cover:
+      "https://res.cloudinary.com/dqwtukgp2/image/upload/v1766609471/sugar-mama-cover_izsitu.jpg",
+    thumbnail:
+      "https://res.cloudinary.com/dqwtukgp2/image/upload/v1766609470/sugar-mama-thumbnail_sysvab.jpg",
   },
   // {
   //   id: "hot-sky",

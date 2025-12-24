@@ -1,22 +1,21 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { motion } from "motion/react";
-import { usePathname, useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-
 import { videoDataBase } from "@/data/video-data-base";
 
 export default function VideoThumbnails() {
   const path = useParams();
   const url = path.id;
+
   const mappedVideo = videoDataBase.map((video, index) => {
     const isSelected = url === video.id || (!url && index === 0);
-
     return (
       <motion.div
         key={video.id}
-        className="mb-4 rounded-2xl overflow-hidden"
+        className="mb-4 rounded-2xl overflow-hidden "
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         // whileTap={enableNavigation ? { scale: 0.95 } : undefined}
@@ -30,11 +29,10 @@ export default function VideoThumbnails() {
       >
         <Link href={`/video/${video.id}`}>
           <Image
-            unoptimized={true} // Bypasses Next.js optimization cache
             src={video.thumbnail}
             draggable={false}
-            width={3840}
-            height={2160}
+            width={1920}
+            height={1080}
             alt={`${video.id}-thumbnail`}
             className={`transition-all duration-300 ${
               isSelected ? "scale-105" : "brightness-25 hover:brightness-65 hover:scale-102"

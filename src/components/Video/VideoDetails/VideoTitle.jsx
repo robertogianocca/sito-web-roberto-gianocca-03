@@ -15,7 +15,7 @@ export default function VideoTitle({ video }) {
       }}
       className="hidden lg:flex items-baseline gap-8 mt-3"
     >
-      <h2 className="text-3xl">{video.title}</h2>
+      <h2 className="text-xl">{video.title}</h2>
       <h3 className="text-base">{video.subtitle}</h3>
     </motion.div>
   );

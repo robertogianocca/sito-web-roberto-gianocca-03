@@ -33,10 +33,12 @@ export default function VideoThumbnails() {
             draggable={false}
             width={1920}
             height={1080}
-            alt={`${video.id}-thumbnail`}
-            className={`transition-all duration-300 ${
+            sizes="(min-width:769px) 400px, 100vw"
+            className={`transition-all duration-300 rounded-2xl ${
               isSelected ? "scale-105" : "brightness-25 hover:brightness-65 hover:scale-102"
             } `}
+            alt={`${video.id}-thumbnail`}
+            aria-label={`View ${video.title ?? video.id} video`}
           />
         </Link>
       </motion.div>

@@ -41,7 +41,7 @@ export default async function VideoPageId({ params }) {
   return (
     <>
       {/* ==================== VIDEO DETAILS ==================== */}
-      <div className="col-span-3 flex flex-col h-dvh p-custom overflow-scroll scrollbar-hide fade-out-bottom">
+      <div className="col-span-3 flex flex-col h-dvh p-custom overflow-scroll scrollbar-hide fade-out-bottom lg:px-2">
         <VideoDetails videoId={id} />
       </div>
     </>

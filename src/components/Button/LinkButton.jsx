@@ -5,7 +5,7 @@ export default function LinkButton({ text, url }) {
   return (
     <Link href={url} target="_blank">
       <motion.div
-        className="inline-block p-2 bg-sky-800 text-white rounded-xl"
+        className="inline-block opacity-50 hover:opacity-70 font-jet-brains underline underline-offset-5"
         whileHover={{
           scale: 1.02,
           // transition: { duration: 1 },
